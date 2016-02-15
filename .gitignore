@@ -48,3 +48,10 @@ in.txt
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#Code Stuff
+*.out
+*.in
+*.meu
+*.vai
+^[^.]*$
