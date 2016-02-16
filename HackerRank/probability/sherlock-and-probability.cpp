@@ -8,7 +8,11 @@ using namespace std;
 typedef long long int ll;
 
 const int MAXN = 100010;
+<<<<<<< HEAD
 const int TREE_SIZE = 250010;
+=======
+const int TREE_SIZE = 1 << 20;
+>>>>>>> cf99e440751328b66089a3a1085e3c5a38babf54
 ll tree[TREE_SIZE];
 char s[MAXN];
 
