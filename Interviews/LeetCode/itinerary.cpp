@@ -1,0 +1,74 @@
+// unordered_map::at
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <string.h>
+#include <utility>
+#include <map>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<string> findItinerary(vector<pair<string, string> 	> tickets) {
+         unordered_map <string, int> indexes;
+         unordered_map <int, string> city_name;
+         int ncities = 0;
+         unordered_map<int,int> nviz;
+         unordered_map<int, vector<int> > viz;
+         map<pair<int,int>, int> visited;
+         vector<string> ans;
+         int len = tickets.size();
+         cout << "Reading graph...\n";
+         for(int i = 0; i < len; i++) {
+             
+             if(indexes[tickets[i].first] == 0) {
+                 indexes[tickets[i].first] = ++ncities;
+                 city_name[ncities] = tickets[i].first;
+             }
+             
+             if(indexes[tickets[i].second] == 0) {
+                 indexes[tickets[i].second] = ++ncities;
+                 city_name[ncities] = tickets[i].second;
+             }
+             
+             int u = indexes[tickets[i].first], w = indexes[tickets[i].second];
+             viz[u].push_back(w);
+             nviz[w]++;
+         }
+         cout << "Starting DFS...\n";
+         for(int i = 1; i <= ncities; i++) {
+             if(nviz[i] == 0) {
+                 dfs(i, visited, ans, city_name, viz);
+                 break;
+             }
+         }
+         
+         return ans;
+    }
+    
+    void dfs(int v, map <pair<int,int>, int> &vis, vector <string> &list, unordered_map <int, string> &cname, unordered_map <int, vector<int> > &viz) {
+	cout << "Reding vertex " << cname[v] <<"...\n";        
+	list.push_back(cname[v]);
+        
+        int len = viz[v].size();
+        for(int i = 0; i < len; i++) {
+            if(!vis[make_pair(v,viz[v][i])]) {
+		vis[make_pair(v,viz[v][i])] = 1;
+                dfs(viz[v][i], vis, list, cname, viz);
+            }
+        }
+        
+    }
+};
+
+int main() {
+	Solution s;
+	vector<pair<string,string>> v;
+	v.push_back(make_pair("MUC","LHR"));
+	v.push_back(make_pair("JFK","MUC"));
+	v.push_back(make_pair("SFO","SJC"));
+	v.push_back(make_pair("LHR","SFO"));
+	s.findItinerary(v);
+}
