@@ -89,7 +89,7 @@ ll nextp (ll d) {
 
 int main() {
 	ll q = 0;
-	ll max = 1e6;
+	ll max = 1e14;
 	printf("Max = %lld\n",max);
 	for(ll i = 1; i < max;) {
 		ll u = i;
